@@ -9,18 +9,17 @@ namespace StringCalculator
         readonly StringCalculator _stringCalculator = new StringCalculator();
         
         [Test]
-        public void Add_WhenEmptyString_Return0()
+        public void Add_WhenInputIsEmptyString_Return0()
         {
             //Arrange 
             const string input = "";
             const int expectedOutput = 0;
-            int output;
 
             //Act 
-            output = _stringCalculator.Add(input);
+            var output = _stringCalculator.Add(input);
 
             //Assert
-            Assert.AreEqual(expectedOutput,output);
+            Assert.AreEqual(expectedOutput, output);
         }
 
         [Test]
@@ -29,10 +28,9 @@ namespace StringCalculator
             //Arrange 
             const string input = "2";
             const int expectedOutput = 2;
-            int output;
 
             //Act 
-            output = _stringCalculator.Add(input);
+            var output = _stringCalculator.Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
@@ -44,10 +42,9 @@ namespace StringCalculator
             //Arrange
             const string input = "2,3";
             const int expectedOutput = 5;
-            int output;
 
             //Act
-            output = _stringCalculator.Add(input);
+            var output = _stringCalculator.Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
@@ -59,10 +56,9 @@ namespace StringCalculator
             //Arrange
             const string input = "2,3,5";
             const int expectedOutput = 10;
-            int output;
-            
+
             //Act
-            output = _stringCalculator.Add(input);
+            var output = _stringCalculator.Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
@@ -74,14 +70,26 @@ namespace StringCalculator
             //Arrange
             const string input = "1\n2,3";
             const int expectedOutput = 6;
-            int output;
 
             //Act
-            output = _stringCalculator.Add(input);
+            var output = _stringCalculator.Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
         }
 
+        [Test]
+        public void Add_WhenInputHasDefaultDelimiter_ReturnSum()
+        {
+            //Arrange
+            const string input = "//;\n1;2";
+            const int expectedOutput = 3;
+
+            //Act
+            var output = _stringCalculator.Add(input);
+
+            //Assert
+            Assert.AreEqual(expectedOutput, output);
+        }
     }
 }

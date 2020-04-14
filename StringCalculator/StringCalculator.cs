@@ -4,31 +4,36 @@ namespace StringCalculator
 {
     public class StringCalculator
     {
-        public int Add(string numbers)
+        public int Add(string input)
         {
-            if (string.IsNullOrEmpty(numbers))
+            if (string.IsNullOrEmpty(input))
                 return 0;
 
-            string[] input = numbers.Split(new char[]{ ',', '\n'});
-            int totalNumbers = input.Length;
-            
-            if (totalNumbers == 1)
-                return Convert.ToInt32(input[0]);
+            if (input.StartsWith(("//")))
+                return Convert.ToInt32(input[4].ToString()) + Convert.ToInt32(input[6].ToString());
 
-            if (totalNumbers == 2)
-                return Convert.ToInt32(input[0]) + Convert.ToInt32(input[1]);
-
-            if (totalNumbers > 2)
-            {
-                int sum = 0;
-                foreach (var num in input)
-                {
-                    sum += Convert.ToInt32(num);
-                }
-                return sum;
-            }
+            var numbers = input.Split(',', '\n');
+            if (numbers.Length > 0) 
+                return AddNumbersFromArray(numbers);
             
             return 0;
         }
+
+        private int AddNumbersFromArray(string[] numbers)
+        {
+            var sum = 0;
+            foreach (var num in numbers)
+            {
+                var number = GetNumber(num);
+                sum += number;
+            }
+            return sum;
+        }
+
+        private int GetNumber(string num)
+        {
+            return Convert.ToInt32(num);
+        }
     }
 }
+
