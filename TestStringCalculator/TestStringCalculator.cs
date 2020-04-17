@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 
 namespace TestStringCalculator
 {
@@ -7,15 +8,15 @@ namespace TestStringCalculator
     public class TestStringCalculator
     {
         /*
-         * Attempt No.4
-         * Code refactoring and optimizations using ReSharper.
+         * Attempt No.5
+         * Inclusion of testing cases of negative numbers.
          */
 
         private StringCalculator.StringCalculator CreateStringCalculator()
         {
             return new StringCalculator.StringCalculator();
         }
-        
+
         [Test]
         public void Add_WhenInputIsEmptyString_Return0()
         {
@@ -98,6 +99,20 @@ namespace TestStringCalculator
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
+        }
+
+        [Test]
+        public void Test_WhenInputHasNegatives_ReturnException()
+        {
+            //Arrange
+            const string input = "-1";
+            const string expectedOutput = "Negative numbers are not allowed";
+
+            //Act
+            var output = Assert.Throws<Exception>(() => CreateStringCalculator().Add(input));
+
+            //Assert
+            Assert.AreEqual(expectedOutput,output.Message);
         }
     }
 }
