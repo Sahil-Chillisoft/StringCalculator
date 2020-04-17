@@ -1,12 +1,20 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace StringCalculator
+namespace TestStringCalculator
 {
     [TestFixture]
     public class TestStringCalculator
     {
-        readonly StringCalculator _stringCalculator = new StringCalculator();
+        /*
+         * Attempt No.4
+         * Code refactoring and optimizations using ReSharper.
+         */
+
+        private StringCalculator.StringCalculator CreateStringCalculator()
+        {
+            return new StringCalculator.StringCalculator();
+        }
         
         [Test]
         public void Add_WhenInputIsEmptyString_Return0()
@@ -16,7 +24,7 @@ namespace StringCalculator
             const int expectedOutput = 0;
 
             //Act 
-            var output = _stringCalculator.Add(input);
+            var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
@@ -30,7 +38,7 @@ namespace StringCalculator
             const int expectedOutput = 2;
 
             //Act 
-            var output = _stringCalculator.Add(input);
+            var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
@@ -44,7 +52,7 @@ namespace StringCalculator
             const int expectedOutput = 5;
 
             //Act
-            var output = _stringCalculator.Add(input);
+            var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
@@ -58,7 +66,7 @@ namespace StringCalculator
             const int expectedOutput = 10;
 
             //Act
-            var output = _stringCalculator.Add(input);
+            var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
@@ -72,7 +80,7 @@ namespace StringCalculator
             const int expectedOutput = 6;
 
             //Act
-            var output = _stringCalculator.Add(input);
+            var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
@@ -86,7 +94,7 @@ namespace StringCalculator
             const int expectedOutput = 3;
 
             //Act
-            var output = _stringCalculator.Add(input);
+            var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);

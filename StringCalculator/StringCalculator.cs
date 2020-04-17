@@ -1,9 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace StringCalculator
 {
     public class StringCalculator
     {
+        /*
+         * Attempt No.4
+         * Code refactoring and optimizations using ReSharper.
+         */
+
         public int Add(string input)
         {
             if (string.IsNullOrEmpty(input))
@@ -12,27 +19,12 @@ namespace StringCalculator
             if (input.StartsWith(("//")))
                 return Convert.ToInt32(input[4].ToString()) + Convert.ToInt32(input[6].ToString());
 
-            var numbers = input.Split(',', '\n');
+            var delimiters = new List<char>{',', '\n'};
+            var numbers = input.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
             if (numbers.Length > 0) 
-                return AddNumbersFromArray(numbers);
+                return numbers.Sum(int.Parse);
             
             return 0;
-        }
-
-        private int AddNumbersFromArray(string[] numbers)
-        {
-            var sum = 0;
-            foreach (var num in numbers)
-            {
-                var number = GetNumber(num);
-                sum += number;
-            }
-            return sum;
-        }
-
-        private int GetNumber(string num)
-        {
-            return Convert.ToInt32(num);
         }
     }
 }
