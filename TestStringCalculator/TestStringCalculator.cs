@@ -8,8 +8,8 @@ namespace TestStringCalculator
     public class TestStringCalculator
     {
         /*
-         * Attempt No.5
-         * Inclusion of testing cases of negative numbers.
+         * Attempt No.6
+         * Inclusion of testing cases for multiple negative numbers.
          */
 
         private StringCalculator.StringCalculator CreateStringCalculator()
@@ -102,17 +102,17 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Test_WhenInputHasNegatives_ReturnException()
+        public void Validate_WhenInputHasNegativeNumbers_ReturnExceptionWithNegativeNumbers()
         {
             //Arrange
-            const string input = "-1";
-            const string expectedOutput = "Negative numbers are not allowed";
+            const string input = "-1, 2, -3, 4, -5";
+            const string expectedOutput = "Negative numbers are not allowed: -1, -3, -5";
 
             //Act
             var output = Assert.Throws<Exception>(() => CreateStringCalculator().Add(input));
 
             //Assert
-            Assert.AreEqual(expectedOutput,output.Message);
+            Assert.AreEqual(expectedOutput, output.Message);
         }
     }
 }
