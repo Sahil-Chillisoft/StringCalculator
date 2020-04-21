@@ -8,9 +8,10 @@ namespace StringCalculator
     public class StringCalculator
     {
         /*
-         * Attempt No.6
-         * Inclusion of testing cases for multiple negative numbers.
-         */
+        * Attempt No.7
+        * Inclusion of numbers greater than 1000 ignore case.
+        * Further code refactoring.
+        */
 
         public int Add(string input)
         {
@@ -21,19 +22,26 @@ namespace StringCalculator
                 return Convert.ToInt32(input[4].ToString()) + Convert.ToInt32(input[6].ToString());
 
             var delimiters = new List<char> { ',', '\n' };
+
             var numbers = input.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
 
             if (numbers.Length > 0)
             {
-                var negativeValues = new StringBuilder("");
+                var negativeNumbers = new StringBuilder("");
+                var sum = 0;
                 foreach (var num in numbers)
                 {
                     if (Convert.ToInt32(num) < 0)
-                        negativeValues.Append("," + num);
+                        negativeNumbers.Append("," + num);
+                    else if (Convert.ToInt32(num) > 1000)
+                        sum += 0;
+                    else
+                        sum += Convert.ToInt32(num);
                 }
-                if (negativeValues.ToString() == "")
-                    return numbers.Sum(int.Parse);
-                throw new Exception($"Negative numbers are not allowed: {negativeValues.Remove(0, 1)}");
+
+                if (negativeNumbers.ToString() != "")
+                    throw new Exception($"Negative numbers are not allowed: {negativeNumbers.Remove(0, 1)}");
+                return sum;
             }
             return 0;
         }

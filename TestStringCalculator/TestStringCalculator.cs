@@ -8,9 +8,10 @@ namespace TestStringCalculator
     public class TestStringCalculator
     {
         /*
-         * Attempt No.6
-         * Inclusion of testing cases for multiple negative numbers.
-         */
+        * Attempt No.7
+        * Inclusion of numbers greater than 1000 ignore case.
+        * Further code refactoring.
+        */
 
         private StringCalculator.StringCalculator CreateStringCalculator()
         {
@@ -113,6 +114,20 @@ namespace TestStringCalculator
 
             //Assert
             Assert.AreEqual(expectedOutput, output.Message);
+        }
+
+        [Test]
+        public void Add_WhenInputHasNumberGreaterThan1000ThenIgnoreNumber_ReturnSum()
+        {
+            //Arrange
+            const string input = "2, 1001";
+            const int expectedOutput = 2;
+
+            //Act
+            var output = CreateStringCalculator().Add(input);
+
+            //Assert
+            Assert.AreEqual(expectedOutput, output);
         }
     }
 }
