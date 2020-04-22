@@ -8,8 +8,8 @@ namespace TestStringCalculator
     public class TestStringCalculator
     {
         /*
-        * Attempt No.7
-        * Inclusion of numbers greater than 1000 ignore case.
+        * Attempt No.8
+        * Inclusion of multiple delimiters with any length.
         * Further code refactoring.
         */
 
@@ -124,6 +124,22 @@ namespace TestStringCalculator
             const int expectedOutput = 2;
 
             //Act
+            var output = CreateStringCalculator().Add(input);
+
+            //Assert
+            Assert.AreEqual(expectedOutput, output);
+        }
+
+        [Test]
+        public void Add_WhenInputHasMultipleDelimitersWithDifferentLengths_ReturnSum()
+        {
+            //Arrange 
+            const string input = "//[***][%]\n1***2%3";
+            //const string input = "//[***]\n1***2***3";
+            //const string input = "//[*][%]\n1*2%3";
+            const int expectedOutput = 6;
+
+            //Act 
             var output = CreateStringCalculator().Add(input);
 
             //Assert

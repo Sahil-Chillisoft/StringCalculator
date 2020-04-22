@@ -8,8 +8,8 @@ namespace StringCalculator
     public class StringCalculator
     {
         /*
-        * Attempt No.7
-        * Inclusion of numbers greater than 1000 ignore case.
+        * Attempt No.8
+        * Inclusion of multiple delimiters with any length.
         * Further code refactoring.
         */
 
@@ -18,13 +18,13 @@ namespace StringCalculator
             if (string.IsNullOrEmpty(input))
                 return 0;
 
-            if (input.StartsWith("//"))
-                return Convert.ToInt32(input[4].ToString()) + Convert.ToInt32(input[6].ToString());
+            var delimiters = new List<string> { ",", "\n", ";", "[***]", "***", "[*]", "*", "[%]", "%"};
 
-            var delimiters = new List<char> { ',', '\n' };
+            if (input.StartsWith("//"))
+                input = input.Remove(0, 2);
 
             var numbers = input.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-
+            
             if (numbers.Length > 0)
             {
                 var negativeNumbers = new StringBuilder("");
