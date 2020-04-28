@@ -8,9 +8,8 @@ namespace TestStringCalculator
     public class TestStringCalculator
     {
         /*
-        * Attempt No.8
-        * Inclusion of multiple delimiters with any length.
-        * Further code refactoring.
+        * Attempt No.9
+        * Use of ReSharper templates
         */
 
         private StringCalculator.StringCalculator CreateStringCalculator()
@@ -19,7 +18,7 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_WhenInputIsEmptyString_Return0()
+        public void Add_GivenInputIsEmpty_Return0()
         {
             //Arrange 
             const string input = "";
@@ -33,7 +32,7 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_WhenInputHas1Number_ReturnInput()
+        public void Add_GivenInputHas1Number_ReturnNumber()
         {
             //Arrange 
             const string input = "2";
@@ -47,13 +46,13 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_WhenInputHas2Numbers_ReturnSum()
+        public void Add_GivenInputHas2Numbers_ReturnSum()
         {
-            //Arrange
+            //Arrange 
             const string input = "2,3";
             const int expectedOutput = 5;
 
-            //Act
+            //Act 
             var output = CreateStringCalculator().Add(input);
 
             //Assert
@@ -61,27 +60,28 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_WhenInputHasMultipleNumbers_ReturnSum()
+        public void Add_GivenInputHasMultipleNumbers_ReturnSum()
         {
-            //Arrange
+            //Arrange 
             const string input = "2,3,5";
             const int expectedOutput = 10;
 
-            //Act
+            //Act 
             var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
         }
 
+
         [Test]
-        public void Add_WhenInputHasNewLineDelimiter_ReturnSum()
+        public void Add_GivenInputHasNewLineDelimiter_ReturnSum()
         {
-            //Arrange
+            //Arrange 
             const string input = "1\n2,3";
             const int expectedOutput = 6;
 
-            //Act
+            //Act 
             var output = CreateStringCalculator().Add(input);
 
             //Assert
@@ -89,13 +89,13 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_WhenInputHasDefaultDelimiter_ReturnSum()
+        public void Add_GivenInputHasDefaultDelimiter_ReturnSum()
         {
-            //Arrange
+            //Arrange 
             const string input = "//;\n1;2";
             const int expectedOutput = 3;
 
-            //Act
+            //Act 
             var output = CreateStringCalculator().Add(input);
 
             //Assert
@@ -103,7 +103,7 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Validate_WhenInputHasNegativeNumbers_ReturnExceptionWithNegativeNumbers()
+        public void Validate_GivenInputHasNegativeNumbers_ReturnException()
         {
             //Arrange
             const string input = "-1, 2, -3, 4, -5";
@@ -117,13 +117,13 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_WhenInputHasNumberGreaterThan1000ThenIgnoreNumber_ReturnSum()
+        public void Add_GivenInputHasNumberGreaterThan1000ThenIgnoreNumber_ReturnSum()
         {
-            //Arrange
+            //Arrange 
             const string input = "2, 1001";
             const int expectedOutput = 2;
 
-            //Act
+            //Act 
             var output = CreateStringCalculator().Add(input);
 
             //Assert
@@ -131,12 +131,24 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_WhenInputHasMultipleDelimitersWithDifferentLengths_ReturnSum()
+        public void Add_GivenDelimitersWithDiffLengths_ReturnSum()
         {
             //Arrange 
-            const string input = "//[***][%]\n1***2%3";
-            //const string input = "//[***]\n1***2***3";
-            //const string input = "//[*][%]\n1*2%3";
+            const string input = "//[***]\n1***2***3";
+            const int expectedOutput = 6;
+
+            //Act 
+            var output = CreateStringCalculator().Add(input);
+
+            //Assert
+            Assert.AreEqual(expectedOutput, output);
+        }
+
+        [Test]
+        public void Add_GivenInputHasMultipleDelimitersWithDiffLengths_ReturnSum()
+        {
+            //Arrange 
+            const string input = "//[*][%]\n1*2%3";
             const int expectedOutput = 6;
 
             //Act 
