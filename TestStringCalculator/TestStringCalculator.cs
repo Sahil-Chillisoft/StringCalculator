@@ -8,8 +8,9 @@ namespace TestStringCalculator
     public class TestStringCalculator
     {
         /*
-        * Attempt No.9
-        * Use of ReSharper templates
+        * Attempt No.10.
+        * Conversion of logic to use LINQ.
+        * Custom delimiter algorithm.
         */
 
         private StringCalculator.StringCalculator CreateStringCalculator()
@@ -92,7 +93,7 @@ namespace TestStringCalculator
         public void Add_GivenInputHasDefaultDelimiter_ReturnSum()
         {
             //Arrange 
-            const string input = "//;\n1;2";
+            const string input = "//[;]\n1;2";
             const int expectedOutput = 3;
 
             //Act 
@@ -148,7 +149,7 @@ namespace TestStringCalculator
         public void Add_GivenInputHasMultipleDelimitersWithDiffLengths_ReturnSum()
         {
             //Arrange 
-            const string input = "//[*][%]\n1*2%3";
+            const string input = "//[***][%]\n1***2%3";
             const int expectedOutput = 6;
 
             //Act 
