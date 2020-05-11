@@ -7,12 +7,6 @@ namespace TestStringCalculator
     [TestFixture]
     public class TestStringCalculator
     {
-        /*
-        * Attempt No.10.
-        * Conversion of logic to use LINQ.
-        * Custom delimiter algorithm.
-        */
-
         private StringCalculator.StringCalculator CreateStringCalculator()
         {
             return new StringCalculator.StringCalculator();
@@ -104,7 +98,21 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Validate_GivenInputHasNegativeNumbers_ReturnException()
+        public void Validate_GivenInputHasSingleNegativeNumber_ReturnException()
+        {
+            //Arrange
+            const string input = "-1";
+            const string expectedOutput = "Negative numbers are not allowed: -1";
+
+            //Act
+            var output = Assert.Throws<Exception>(() => CreateStringCalculator().Add(input));
+
+            //Assert
+            Assert.AreEqual(expectedOutput, output.Message);
+        }
+
+        [Test]
+        public void Validate_GivenInputHasMultipleNegativeNumbers_ReturnException()
         {
             //Arrange
             const string input = "-1, 2, -3, 4, -5";
@@ -118,7 +126,7 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_GivenInputHasNumberGreaterThan1000ThenIgnoreNumber_ReturnSum()
+        public void Add_GivenInputHasNumbersGreaterThan1000ThenIgnoreNumber_ReturnSum()
         {
             //Arrange 
             const string input = "2, 1001";
@@ -129,6 +137,20 @@ namespace TestStringCalculator
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
+        }
+
+        [Test]
+        public void Add_GivenInputHasNumbersLessThan1000_ReturnSum()
+        {
+            //Arrange 
+            const string input = "1, 999";
+            const int expectedOutput = 1000;
+            
+            //Act
+            var output = CreateStringCalculator().Add(input);
+
+            //Assert
+            Assert.AreEqual(expectedOutput,output);
         }
 
         [Test]

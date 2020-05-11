@@ -7,30 +7,23 @@ namespace StringCalculator
 {
     public class StringCalculator
     {
-        /*
-        * Attempt No.10.
-        * Conversion of logic to use LINQ.
-        * Custom delimiter algorithm.
-        */
-
         public int Add(string input)
         {
             if (string.IsNullOrEmpty(input))
                 return 0;
 
             var delimiters = new List<string> { ",", "\n" };
-
-            if (input.StartsWith("//"))
+            var numberSection = input;
+            if (HasCustomDelimiter(input))
             {
-                input = input.Remove(0, 2);
-                var delimiterString = input.Split('\n');
-                input = delimiterString[1];
-                var customDelimiters = GetCustomDelimiters(delimiterString[0]);
+                string delimiterSection;
+                (delimiterSection, numberSection) = ParseInput(input);
+                var customDelimiters = GetCustomDelimiters(delimiterSection);
                 delimiters.AddRange(customDelimiters);
             }
 
-            var numbers = input.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-
+            var numbers = numberSection.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
+            
             var filteredNumbers = numbers.Select(int.Parse).Where(n => n <= 1000).ToList();
             var negativeNumbers = filteredNumbers.Where(n => n < 0).ToList();
 
@@ -40,20 +33,23 @@ namespace StringCalculator
             return filteredNumbers.Sum();
         }
 
-        public List<string> GetCustomDelimiters(string delimiterString)
+        public bool HasCustomDelimiter(string input)
         {
-            var newDelimiters = new List<string>();
-            var delimiters = delimiterString;
+            return input.StartsWith("//");
+        }
 
-            while (delimiters.Contains('[') && delimiters.Contains(']'))
-            {
-                var startIndex = delimiters.IndexOf('[');
-                var endIndex = delimiters.IndexOf(']');
-                var newDelimiter = delimiters.Substring(startIndex + 1, endIndex - 1);
-                newDelimiters.Add(newDelimiter);
-                delimiters = delimiters.Remove(startIndex, endIndex + 1);
-            }
+        public (string, string) ParseInput(string input)
+        {
+            input = input.Remove(0, 2);
+            var sections = input.Split('\n');
+            return (sections.First(), sections.Last());
+        }
 
+        public List<string> GetCustomDelimiters(string delimiters)
+        {
+            var delimiterSection = delimiters.Remove(0, 1);
+            delimiterSection = delimiterSection.Remove(delimiterSection.Length - 1,1);
+            var newDelimiters = delimiterSection.Split("][");
             return newDelimiters.ToList();
         }
     }
