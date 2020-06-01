@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Linq.Expressions;
 
 namespace StringCalculator
 {
@@ -23,34 +23,33 @@ namespace StringCalculator
             }
 
             var numbers = numberSection.Split(delimiters.ToArray(), StringSplitOptions.RemoveEmptyEntries);
-            
-            var filteredNumbers = numbers.Select(int.Parse).Where(n => n <= 1000).ToList();
+            var filteredNumbers = numbers.Select(int.Parse).Where(n => n < 1000).ToList();
             var negativeNumbers = filteredNumbers.Where(n => n < 0).ToList();
-
+            
             if (negativeNumbers.Any())
-                throw new Exception($"Negative numbers are not allowed: {string.Join(", ", negativeNumbers)}");
-
+                throw new Exception($"Negatives not allowed: {string.Join(",", negativeNumbers)}");
+         
             return filteredNumbers.Sum();
         }
 
-        public bool HasCustomDelimiter(string input)
+        private IEnumerable<string> GetCustomDelimiters(string delimiterSection)
         {
-            return input.StartsWith("//");
+            delimiterSection = delimiterSection.Remove(0, 1);
+            delimiterSection = delimiterSection.Remove(delimiterSection.Length-1,1);
+            var newDelimiters = delimiterSection.Split("][");
+            return newDelimiters;
         }
 
-        public (string, string) ParseInput(string input)
+        private (string, string) ParseInput(string input)
         {
             input = input.Remove(0, 2);
             var sections = input.Split('\n');
             return (sections.First(), sections.Last());
         }
 
-        public List<string> GetCustomDelimiters(string delimiters)
+        private bool HasCustomDelimiter(string input)
         {
-            var delimiterSection = delimiters.Remove(0, 1);
-            delimiterSection = delimiterSection.Remove(delimiterSection.Length - 1,1);
-            var newDelimiters = delimiterSection.Split("][");
-            return newDelimiters.ToList();
+            return input.StartsWith("//");
         }
     }
 }

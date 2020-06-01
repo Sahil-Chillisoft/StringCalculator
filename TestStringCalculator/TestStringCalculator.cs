@@ -1,6 +1,5 @@
 ﻿using System;
 using NUnit.Framework;
-using NUnit.Framework.Internal;
 
 namespace TestStringCalculator
 {
@@ -19,7 +18,7 @@ namespace TestStringCalculator
             const string input = "";
             const int expectedOutput = 0;
 
-            //Act 
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
@@ -27,13 +26,13 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_GivenInputHas1Number_ReturnNumber()
+        public void Add_GivenInputHasSingleNumber_ReturnNumber()
         {
             //Arrange 
-            const string input = "2";
-            const int expectedOutput = 2;
+            const string input = "1";
+            const int expectedOutput = 1;
 
-            //Act 
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
@@ -44,10 +43,10 @@ namespace TestStringCalculator
         public void Add_GivenInputHas2Numbers_ReturnSum()
         {
             //Arrange 
-            const string input = "2,3";
-            const int expectedOutput = 5;
+            const string input = "1,2";
+            const int expectedOutput = 3;
 
-            //Act 
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
@@ -55,19 +54,18 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_GivenInputHasMultipleNumbers_ReturnSum()
+        public void Add_GivenInputHasMultiple_ReturnSum()
         {
             //Arrange 
-            const string input = "2,3,5";
-            const int expectedOutput = 10;
+            const string input = "1,2,3";
+            const int expectedOutput = 6;
 
-            //Act 
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
         }
-
 
         [Test]
         public void Add_GivenInputHasNewLineDelimiter_ReturnSum()
@@ -76,7 +74,7 @@ namespace TestStringCalculator
             const string input = "1\n2,3";
             const int expectedOutput = 6;
 
-            //Act 
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
@@ -84,101 +82,131 @@ namespace TestStringCalculator
         }
 
         [Test]
-        public void Add_GivenInputHasDefaultDelimiter_ReturnSum()
+        public void Add_GivenInputHasCustomDelimiter_ReturnSum()
         {
             //Arrange 
             const string input = "//[;]\n1;2";
             const int expectedOutput = 3;
 
-            //Act 
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
         }
-
+        
         [Test]
-        public void Validate_GivenInputHasSingleNegativeNumber_ReturnException()
-        {
-            //Arrange
-            const string input = "-1";
-            const string expectedOutput = "Negative numbers are not allowed: -1";
-
-            //Act
-            var output = Assert.Throws<Exception>(() => CreateStringCalculator().Add(input));
-
-            //Assert
-            Assert.AreEqual(expectedOutput, output.Message);
-        }
-
-        [Test]
-        public void Validate_GivenInputHasMultipleNegativeNumbers_ReturnException()
-        {
-            //Arrange
-            const string input = "-1, 2, -3, 4, -5";
-            const string expectedOutput = "Negative numbers are not allowed: -1, -3, -5";
-
-            //Act
-            var output = Assert.Throws<Exception>(() => CreateStringCalculator().Add(input));
-
-            //Assert
-            Assert.AreEqual(expectedOutput, output.Message);
-        }
-
-        [Test]
-        public void Add_GivenInputHasNumbersGreaterThan1000ThenIgnoreNumber_ReturnSum()
+        public void Validate_WhenInputHasSingleNegativeNumber_ReturnException()
         {
             //Arrange 
-            const string input = "2, 1001";
+            const string input = "-1";
+            const string expectedOutput = "Negatives not allowed: -1";
+
+            //Act             
+            var output = Assert.Throws<Exception>(() => CreateStringCalculator().Add(input));
+
+            //Assert
+            Assert.AreEqual(expectedOutput, output.Message);
+        }
+        
+        [Test]
+        public void Validate_WhenInputHasMultipleNegativeNumber_ReturnException()
+        {
+            //Arrange 
+            const string input = "-1,2,-3,4,-5";
+            const string expectedOutput = "Negatives not allowed: -1,-3,-5";
+
+            //Act             
+            var output = Assert.Throws<Exception>(() => CreateStringCalculator().Add(input));
+
+            //Assert
+            Assert.AreEqual(expectedOutput, output.Message);
+        }
+
+        [Test]
+        public void Add_GivenInputHasNumberGreaterThen1000ThenIgnoreNumber_ReturnSum()
+        {
+            //Arrange 
+            const string input = "2,1001";
             const int expectedOutput = 2;
 
-            //Act 
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
         }
 
+        [Test]
+        public void Add_GivenInputHasMultipleNumbersGreaterThen1000ThenIgnoreNumbers_ReturnSum()
+        {
+            //Arrange 
+            const string input = "2,1001,3,1002";
+            const int expectedOutput = 5;
+
+            //Act             
+            var output = CreateStringCalculator().Add(input);
+
+            //Assert
+            Assert.AreEqual(expectedOutput, output);
+        }
+        
         [Test]
         public void Add_GivenInputHasNumbersLessThan1000_ReturnSum()
         {
             //Arrange 
-            const string input = "1, 999";
-            const int expectedOutput = 1000;
-            
-            //Act
+            const string input = "2,999";
+            const int expectedOutput = 1001;
+
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
-            Assert.AreEqual(expectedOutput,output);
+            Assert.AreEqual(expectedOutput, output);
         }
-
+        
         [Test]
-        public void Add_GivenDelimitersWithDiffLengths_ReturnSum()
+        public void Add_GivenInputCustomDelimiterWithDiffLength_ReturnSum()
         {
             //Arrange 
             const string input = "//[***]\n1***2***3";
             const int expectedOutput = 6;
 
-            //Act 
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
-        }
-
+        }  
+        
         [Test]
-        public void Add_GivenInputHasMultipleDelimitersWithDiffLengths_ReturnSum()
+        public void Add_GivenInputHasCustomDelimiters_ReturnSum()
         {
             //Arrange 
-            const string input = "//[***][%]\n1***2%3";
+            const string input = "//[*][%]\n1*2%3";
             const int expectedOutput = 6;
 
-            //Act 
+            //Act             
             var output = CreateStringCalculator().Add(input);
 
             //Assert
             Assert.AreEqual(expectedOutput, output);
         }
+        
+        
+        [Test]
+        public void Add_GivenInputHasCustomDelimitersWithDiffLengths_ReturnSum()
+        {
+            //Arrange 
+            const string input = "//[***][%%]\n1***2%%3";
+            const int expectedOutput = 6;
+
+            //Act             
+            var output = CreateStringCalculator().Add(input);
+
+            //Assert
+            Assert.AreEqual(expectedOutput, output);
+        }
+
     }
 }
