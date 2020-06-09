@@ -3,3 +3,6 @@
 ################################################################################
 
 /StringCalculator/obj
+/StringCalculator/bin/Debug/netcoreapp3.1
+/StringCalculator.Tests/bin/Debug/netcoreapp3.1
+/StringCalculator.Tests/obj
