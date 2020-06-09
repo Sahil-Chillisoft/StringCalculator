@@ -1,9 +1,0 @@
-D:\Repos\StringCalculator\StringCalculator\bin\Debug\netcoreapp3.1\StringCalculator.deps.json
-D:\Repos\StringCalculator\StringCalculator\bin\Debug\netcoreapp3.1\StringCalculator.dll
-D:\Repos\StringCalculator\StringCalculator\bin\Debug\netcoreapp3.1\StringCalculator.pdb
-D:\Repos\StringCalculator\StringCalculator\obj\Debug\netcoreapp3.1\StringCalculator.csprojAssemblyReference.cache
-D:\Repos\StringCalculator\StringCalculator\obj\Debug\netcoreapp3.1\StringCalculator.csproj.CoreCompileInputs.cache
-D:\Repos\StringCalculator\StringCalculator\obj\Debug\netcoreapp3.1\StringCalculator.AssemblyInfoInputs.cache
-D:\Repos\StringCalculator\StringCalculator\obj\Debug\netcoreapp3.1\StringCalculator.AssemblyInfo.cs
-D:\Repos\StringCalculator\StringCalculator\obj\Debug\netcoreapp3.1\StringCalculator.dll
-D:\Repos\StringCalculator\StringCalculator\obj\Debug\netcoreapp3.1\StringCalculator.pdb
